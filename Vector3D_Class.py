@@ -68,29 +68,33 @@ class vector3D:
         new_vector3D = [x_new,y_new, z_new]
         return new_vector3D
 
-V1 = 1,2,3
-test = vector3D(V1[0],V1[1], V1[2])
-V2 = 4,6,8
-test2 = vector3D(V2[0],V2[1],V2[2])
 
 
-a = test.magnitude()
-print(f'test = {test}')
-
-b = test.__str__()
-print(f'test2 = {test2}')
-
-c = test+test2
-print(f'test+test2 = {c}')
-
-d = test-test2
-print(f'test-test2 = {d}')
-
-e = test.dot(test2)
-print(f'test dot test2 = {e}, numpy = {np.dot(V1,V2)}')
-
-f = test.cross(test2)
-print(f'test dot test2 = {f}, numpy = {np.cross(V1,V2)}')
-
-
-
+if __name__ == "__main__":
+        
+    V1 = 1,2,3
+    test = vector3D(V1[0],V1[1], V1[2])
+    V2 = 4,6,8
+    test2 = vector3D(V2[0],V2[1],V2[2])
+    
+    
+    a = test.magnitude()
+    print(f'test = {test}')
+    
+    b = test.__str__()
+    print(f'test2 = {test2}')
+    
+    c = test+test2
+    print(f'test+test2 = {c}')
+    
+    d = test-test2
+    print(f'test-test2 = {d}')
+    
+    e = test.dot(test2)
+    print(f'test dot test2 = {e}, numpy = {np.dot(V1,V2)}')
+    
+    f = test.cross(test2)
+    print(f'test dot test2 = {f}, numpy = {np.cross(V1,V2)}')
+    
+    
+    
