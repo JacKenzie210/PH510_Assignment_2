@@ -3,6 +3,8 @@
 Created on Mon Feb 17 14:13:02 2025
 
 @author: jackm
+
+Cartesian Vector Class
 """
 
 import numpy as np
@@ -34,7 +36,7 @@ class Vector3D:
 
     def magnitude(self):
         "returns the magnitude of the vector"
-        mag = np.sqrt(self.x**2)+np.sqrt(self.y**2)+np.sqrt(self.z**2)
+        mag = np.sqrt(self.x**2 +self.y**2 + self.z**2)
         #print(f"V magnitude = {mag}")
         return mag
     def __add__(self,other):
@@ -62,12 +64,31 @@ class Vector3D:
         z_new = (self.x*other.y) - (other.x*self.y)
         new_vector_3d = [x_new,y_new, z_new]
         return new_vector_3d
+    
+    def TriangleArea(self,B, C):
+        """
+        Calculates the area of the triangle using the Vertices 
+        Area = 0.5 *mag(AB x AC)
+        """
+        A = self
+        AB = B - A #note this is B - A but due to how __sub__ does self- other,
+        print(AB)
+        AC = C - A #the order needs flipped 
+        print(AC)
+        ABxAC = AB.cross(AC)
+        print(Vector3D(ABxAC[0],ABxAC[1],ABxAC[2]).magnitude())
+        Area = 0.5 * Vector3D(ABxAC[0],ABxAC[1],ABxAC[2]).magnitude()
+
+        return Area
+        
 
 if __name__ == "__main__":
     V1 = 1,2,3
     test = Vector3D(V1[0],V1[1], V1[2])
     V2 = 4,6,8
     test2 = Vector3D(V2[0],V2[1],V2[2])
+    V3 = 9,8,7
+    test3 = Vector3D(V3[0],V3[1],V3[2])
 
     a = test.magnitude()
     print(f'test = {test}')
@@ -86,4 +107,8 @@ if __name__ == "__main__":
 
     f = test.cross(test2)
     print(f'test dot test2 = {f}, numpy = {np.cross(V1,V2)}')
+    
+    g = test.TriangleArea(test2,test3)
+    print(f'Area of Triangle test = {g}, verified using triangle calculator.com')
+    
     

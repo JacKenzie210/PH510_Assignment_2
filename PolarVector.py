@@ -3,23 +3,32 @@
 Created on Tue Feb 18 11:07:10 2025
 
 @author: jackm
+
+Polar Vector Class
 """
 
-from Vector3D_Class import Vector3D as v3d
-import numpy as np
 from math import atan2
+import numpy as np
+from Vector3D_Class import Vector3D as v3d
 
 class PolarVector(v3d):
+    """
+    Sub class of Vector3D_Class which can take polar co-ordinate inputs and
+    also allows conversion from polar to/from cartesian co-ordinates
+    """
     def __init__(self,r,t,p):
         v3d.__init__(self,
                    r*np.cos(t)*np.cos(p),
                    r*np.cos(t)*np.sin(p),
                    r*np.sin(t))
     def r(self):
+        "returns the radius from the vector magnitude"
         return self.magnitude()
     def phi(self):
+        "returns phi using cartesian coordinates"
         return atan2(self.x,self.y)
     def theta(self):
+        "return theta using cartesian coordinates"
         return np.arcsin(self.z/self.magnitude())
 
 if __name__ == "__main__":
