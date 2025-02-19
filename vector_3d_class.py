@@ -87,8 +87,8 @@ if __name__ == "__main__":
     Ta = test.magnitude()
     print(f'test = {test}')
 
-    Tb = test.__str__()
-    print(f'test2 = {test2}')
+    # Tb = test.__str__()
+    # print(f'test2 = {test2}')
 
     Tc = test+test2
     print(f'test+test2 = {Tc}')

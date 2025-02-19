@@ -17,10 +17,35 @@ class PolarVector(v3d):
     also allows conversion from polar to/from cartesian co-ordinates
     """
     def __init__(self,r,t,p):
+        
+        t = (t + np.pi) % (2 * np.pi) - np.pi
+        
+        p =(p + np.pi) % (2 * np.pi) - np.pi
+        
+
+        
         v3d.__init__(self,
                    r*np.cos(t)*np.cos(p),
                    r*np.cos(t)*np.sin(p),
                    r*np.sin(t))
+        
+        if t >= np.pi:
+            self.x = -x
+            self.y = -y
+            self.z = -z
+            
+        if p >= np.pi:
+            self.x = -x
+            self.y = -y
+            
+        
+        eps = 1e-10 #error tolerence to turn very small numbers to 0 
+        self.x = 0 if abs(self.x) < eps else self.x
+        self.y = 0 if abs(self.y) < eps else self.y
+        self.z = 0 if abs(self.z) < eps else self.z
+        
+        
+        
     def r(self):
         "returns the radius from the vector magnitude"
         return self.magnitude()
@@ -32,9 +57,6 @@ class PolarVector(v3d):
         return np.arcsin(self.z/self.magnitude())
 
 if __name__ == "__main__":
-    """
-    Testing the polar cordinate returns
-    """
     test0 = PolarVector(1,np.pi/2,np.pi)
     print(f'Polar_coords return = {test0.r(),test0.phi(),test0.theta()}')
     """
