@@ -64,24 +64,18 @@ class Vector3D:
         z_new = (self.x*other.y) - (other.x*self.y)
         new_vector_3d = [x_new,y_new, z_new]
         return new_vector_3d
-    
     def TriangleArea(self,B, C):
         """
-        Calculates the area of the triangle using the Vertices 
+        Calculates the area of the triangle using the Vertices
         Area = 0.5 *mag(AB x AC)
         """
         A = self
         AB = B - A #note this is B - A but due to how __sub__ does self- other,
-        print(AB)
-        AC = C - A #the order needs flipped 
-        print(AC)
+        AC = C - A #the order needs flipped
         ABxAC = AB.cross(AC)
-        print(Vector3D(ABxAC[0],ABxAC[1],ABxAC[2]).magnitude())
         Area = 0.5 * Vector3D(ABxAC[0],ABxAC[1],ABxAC[2]).magnitude()
 
         return Area
-        
-
 if __name__ == "__main__":
     V1 = 1,2,3
     test = Vector3D(V1[0],V1[1], V1[2])
@@ -90,25 +84,23 @@ if __name__ == "__main__":
     V3 = 9,8,7
     test3 = Vector3D(V3[0],V3[1],V3[2])
 
-    a = test.magnitude()
+    Ta = test.magnitude()
     print(f'test = {test}')
 
-    b = test.__str__()
+    Tb = test.__str__()
     print(f'test2 = {test2}')
 
-    c = test+test2
-    print(f'test+test2 = {c}')
+    Tc = test+test2
+    print(f'test+test2 = {Tc}')
 
-    d = test-test2
-    print(f'test-test2 = {d}')
+    Td = test-test2
+    print(f'test-test2 = {Td}')
 
-    e = test.dot(test2)
-    print(f'test dot test2 = {e}, numpy = {np.dot(V1,V2)}')
+    Te = test.dot(test2)
+    print(f'test dot test2 = {Te}, numpy = {np.dot(V1,V2)}')
 
-    f = test.cross(test2)
-    print(f'test dot test2 = {f}, numpy = {np.cross(V1,V2)}')
-    
-    g = test.TriangleArea(test2,test3)
-    print(f'Area of Triangle test = {g}, verified using triangle calculator.com')
-    
-    
+    Tf = test.cross(test2)
+    print(f'test dot test2 = {Tf}, numpy = {np.cross(V1,V2)}')
+
+    Tg = test.TriangleArea(test2,test3)
+    print(f'Area of Triangle test = {Tg}, verified using triangle calculator VC website')

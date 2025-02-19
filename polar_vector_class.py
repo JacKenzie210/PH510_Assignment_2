@@ -9,7 +9,7 @@ Polar Vector Class
 
 from math import atan2
 import numpy as np
-from Vector3D_Class import Vector3D as v3d
+from vector_3d_class import Vector3D as v3d
 
 class PolarVector(v3d):
     """
