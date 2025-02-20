@@ -33,6 +33,16 @@ class Vector3D:
         self.z = z
     def __str__(self):
         return str([self.x,self.y,self.z])
+    
+    def __getitem__(self, index):
+        if index == 0:
+            return self.x
+        elif index == 1:
+            return self.y
+        elif index == 2:
+            return self.z
+        else:
+            raise Exception('Only 3 DImentional i.e max index = 2 ')
 
     def magnitude(self):
         "returns the magnitude of the vector"
@@ -74,8 +84,44 @@ class Vector3D:
         AC = C - A #the order needs flipped
         ABxAC = AB.cross(AC)
         Area = 0.5 * Vector3D(ABxAC[0],ABxAC[1],ABxAC[2]).magnitude()
-
         return Area
+    def inner_angles(self,B,C, deg_or_rad):
+        """
+        Calculates the inner angles by working out the lengths of the sides 
+        and using the cosine rule.
+        
+        4 arguments including self, 2 other vectors and a string "deg" or "rad"
+        """
+        A = self
+        LineAB = B - A
+        LineAB = Vector3D(LineAB[0],LineAB[1], LineAB[2])
+        MagLineAB = LineAB.magnitude()
+        
+        LineAC = C - A
+        LineAB = Vector3D(LineAC[0],LineAC[1], LineAC[2])
+        MagLineAC = LineAC.magnitude()
+        
+        LineBC = C - B
+        LineAB = Vector3D(LineBC[0],LineBC[1], LineBC[2])
+        MagLineBC = LineBC.magnitude()
+        
+        Lines = np.array([MagLineAB,MagLineAC,MagLineBC])
+        print('lines', Lines)
+        #Using cosine rule to determine angle
+        AngleA = np.arccos( (Lines[1]**2+Lines[2]**2-Lines[0]**2) / (2*Lines[1]*Lines[2]))
+        AngleB = np.arccos( (Lines[0]**2+Lines[2]**2-Lines[1]**2) / (2*Lines[0]*Lines[2]) )     
+        AngleC = np.arccos( Lines[0]**2+Lines[1]**2-Lines[2]**2 ) / (2*Lines[0]*Lines[1])    
+        Angles = np.array([AngleA, AngleB, AngleC])
+        
+        if deg_or_rad == "deg":
+            Angles = np.rad2deg(Angles)
+        elif deg_or_rad == "rad":
+            pass
+        else:
+            raise Exception('use "dag" or "rad"')
+        return Angles
+    
+    
 if __name__ == "__main__":
     V1 = 1,2,3
     test = Vector3D(V1[0],V1[1], V1[2])
@@ -103,4 +149,7 @@ if __name__ == "__main__":
     print(f'test dot test2 = {Tf}, numpy = {np.cross(V1,V2)}')
 
     Tg = test.TriangleArea(test2,test3)
-    print(f'Area of Triangle test = {Tg}, verified using triangle calculator VC website')
+    print(f'Area of Triangle test 1,2,3 vertices = {Tg}, verified using triangle calculator VC website')
+    
+    Th = test.inner_angles(test2, test3, "deg")
+    print(Th)

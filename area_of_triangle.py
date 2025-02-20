@@ -61,5 +61,3 @@ Vert4 = pol(1,np.pi/2,0) , pol(1,np.pi/2,np.pi), pol(1,np.pi/2,3*np.pi/2)
 AreaT4 =pol.TriangleArea(Vert4[0], Vert4[1], Vert4[2])
 print(f'Area of Triangle 4 = {AreaT4}')
 print(Vert4[0], Vert4[1],Vert4[2])
-
-print(pol(1,np.pi/2,0))

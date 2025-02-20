@@ -18,26 +18,19 @@ class PolarVector(v3d):
     """
     def __init__(self,r,t,p):
         
-        t = (t + np.pi) % (2 * np.pi) - np.pi
-        
-        p =(p + np.pi) % (2 * np.pi) - np.pi
-        
-
+        #Unit Convertsion from Degrees to radians
+        #(assumes no input > 2pi for radians and < 2pi for degree )
+        if t > abs(2*np.pi):
+            np.deg2rad(t)
+        if p > abs(2*np.pi):
+            np.deg2rad(p)
         
         v3d.__init__(self,
-                   r*np.cos(t)*np.cos(p),
-                   r*np.cos(t)*np.sin(p),
-                   r*np.sin(t))
+                   r*np.sin(t)*np.sin(p),
+                   r*np.sin(t)*np.cos(p),
+                   r*np.cos(t))
         
-        if t >= np.pi:
-            self.x = -x
-            self.y = -y
-            self.z = -z
-            
-        if p >= np.pi:
-            self.x = -x
-            self.y = -y
-            
+
         
         eps = 1e-10 #error tolerence to turn very small numbers to 0 
         self.x = 0 if abs(self.x) < eps else self.x
