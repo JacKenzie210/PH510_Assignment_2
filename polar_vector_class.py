@@ -24,20 +24,16 @@ class PolarVector(v3d):
             np.deg2rad(t)
         if p > abs(2*np.pi):
             np.deg2rad(p)
-        
+
         v3d.__init__(self,
                    r*np.sin(t)*np.sin(p),
                    r*np.sin(t)*np.cos(p),
                    r*np.cos(t))
         
-
-        
         eps = 1e-10 #error tolerence to turn very small numbers to 0 
         self.x = 0 if abs(self.x) < eps else self.x
         self.y = 0 if abs(self.y) < eps else self.y
         self.z = 0 if abs(self.z) < eps else self.z
-        
-        
         
     def r(self):
         "returns the radius from the vector magnitude"

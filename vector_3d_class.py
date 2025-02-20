@@ -33,7 +33,6 @@ class Vector3D:
         self.z = z
     def __str__(self):
         return str([self.x,self.y,self.z])
-    
     def __getitem__(self, index):
         if index == 0:
             return self.x
@@ -43,7 +42,6 @@ class Vector3D:
             return self.z
         else:
             raise Exception('Only 3 DImentional i.e max index = 2 ')
-
     def magnitude(self):
         "returns the magnitude of the vector"
         mag = np.sqrt(self.x**2 +self.y**2 + self.z**2)
@@ -64,9 +62,11 @@ class Vector3D:
     def __sub__(self,other):
         'Returns the subtraction of two vectors.'
         return Vector3D(self.x-other.x, self.y-other.y, self.z -other.z)
+
     def dot(self,other):
         'returns the scalar/dot product of two vectors'
         return self.x*other.x + self.y*other.y + self.z*other.z
+
     def cross(self,other):
         'returns the vector/cross product of two vectors'
         x_new = (self.y*other.z)-(other.y*self.z)
@@ -74,7 +74,8 @@ class Vector3D:
         z_new = (self.x*other.y) - (other.x*self.y)
         new_vector_3d = [x_new,y_new, z_new]
         return new_vector_3d
-    def TriangleArea(self,B, C):
+
+    def triangle_area(self,B, C):
         """
         Calculates the area of the triangle using the Vertices
         Area = 0.5 *mag(AB x AC)
@@ -85,7 +86,8 @@ class Vector3D:
         ABxAC = AB.cross(AC)
         Area = 0.5 * Vector3D(ABxAC[0],ABxAC[1],ABxAC[2]).magnitude()
         return Area
-    def inner_angles(self,B,C, deg_or_rad):
+
+    def triangle_angles(self,B,C, deg_or_rad):
         """
         Calculates the inner angles by working out the lengths of the sides 
         and using the cosine rule.
@@ -96,7 +98,7 @@ class Vector3D:
         LineAB = B - A
         LineAB = Vector3D(LineAB[0],LineAB[1], LineAB[2])
         MagLineAB = LineAB.magnitude()
-        
+
         LineAC = C - A
         LineAB = Vector3D(LineAC[0],LineAC[1], LineAC[2])
         MagLineAC = LineAC.magnitude()
@@ -104,15 +106,16 @@ class Vector3D:
         LineBC = C - B
         LineAB = Vector3D(LineBC[0],LineBC[1], LineBC[2])
         MagLineBC = LineBC.magnitude()
-        
+
         Lines = np.array([MagLineAB,MagLineAC,MagLineBC])
-        print('lines', Lines)
+
         #Using cosine rule to determine angle
-        AngleA = np.arccos( (Lines[1]**2+Lines[2]**2-Lines[0]**2) / (2*Lines[1]*Lines[2]))
+        AngleA = np.arccos( (Lines[1]**2+Lines[2]**2-Lines[0]**2) / (2*Lines[1]*Lines[2]) )
         AngleB = np.arccos( (Lines[0]**2+Lines[2]**2-Lines[1]**2) / (2*Lines[0]*Lines[2]) )     
-        AngleC = np.arccos( Lines[0]**2+Lines[1]**2-Lines[2]**2 ) / (2*Lines[0]*Lines[1])    
+        AngleC = np.arccos( (Lines[0]**2+Lines[1]**2-Lines[2]**2 ) / (2*Lines[0]*Lines[1]) )
+
         Angles = np.array([AngleA, AngleB, AngleC])
-        
+
         if deg_or_rad == "deg":
             Angles = np.rad2deg(Angles)
         elif deg_or_rad == "rad":
@@ -120,7 +123,7 @@ class Vector3D:
         else:
             raise Exception('use "dag" or "rad"')
         return Angles
-    
+
     
 if __name__ == "__main__":
     V1 = 1,2,3
@@ -148,8 +151,8 @@ if __name__ == "__main__":
     Tf = test.cross(test2)
     print(f'test dot test2 = {Tf}, numpy = {np.cross(V1,V2)}')
 
-    Tg = test.TriangleArea(test2,test3)
+    Tg = test.triangle_area(test2,test3)
     print(f'Area of Triangle test 1,2,3 vertices = {Tg}, verified using triangle calculator VC website')
-    
-    Th = test.inner_angles(test2, test3, "deg")
-    print(Th)
+
+    Th = test.triangle_angles(test2, test3, "deg")
+    print(f'Inner angles = {Th}, verified using triangle calculator VC website')
