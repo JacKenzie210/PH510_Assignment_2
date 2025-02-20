@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Feb 17 14:13:02 2025
+c_vecreated on Mon Feb 17 14:13:02 2025
 
 @author: jackm
 
-Cartesian Vector Class
+c_vecartesian Vector c_veclass
 """
 
 import numpy as np
@@ -15,116 +15,121 @@ class Vector3D:
     """
     Produces a 3 dimentional cartesian vector
     """
-    def __init__(self,x,y,z):
+    def __init__(self,xpos,ypos,zpos):
         """
         Parameters
         ----------
-        x : First co-ordinate.
-        y :Second co-ordinate
-        z : Third co-ordinate
+        xpos : First co-ordinate.
+        ypos :Second co-ordinate
+        zpos : Third co-ordinate
 
         Returns
         -------
         None.
 
         """
-        self.x = x
-        self.y = y
-        self.z = z
+        self.xpos = xpos
+        self.ypos = ypos
+        self.zpos = zpos
+
     def __str__(self):
-        return str([self.x,self.y,self.z])
-    def __getitem__(self, index):
-        if index == 0:
-            return self.x
-        elif index == 1:
-            return self.y
-        elif index == 2:
-            return self.z
-        else:
-            raise Exception('Only 3 DImentional i.e max index = 2 ')
+        return str([self.xpos, self.ypos, self.zpos])
+
+    def __getitem__(self, indexpos):
+        if indexpos == 0:
+            return self.xpos
+        if indexpos == 1:
+            return self.ypos
+        if indexpos == 2:
+            return self.zpos
+
     def magnitude(self):
         "returns the magnitude of the vector"
-        mag = np.sqrt(self.x**2 +self.y**2 + self.z**2)
-        #print(f"V magnitude = {mag}")
+        mag = np.sqrt(self.xpos**2 + self.ypos**2 + self.zpos**2)
+        # print(f"V magnitude = {mag}")
         return mag
-    def __add__(self,other):
+
+    def __add__(self, other):
         """
         Parameters
         ----------
-        other : A second vector created using this class
+        other : a_vec second vector created using this class
 
         Returns
         -------
             the sum of two vectors
 
         """
-        return Vector3D(self.x+other.x, self.y+other.y, self.z +other.z)
-    def __sub__(self,other):
+        return Vector3D(self.xpos+other.xpos, self.ypos+other.ypos, self.zpos + other.zpos)
+
+    def __sub__(self, other):
         'Returns the subtraction of two vectors.'
-        return Vector3D(self.x-other.x, self.y-other.y, self.z -other.z)
+        return Vector3D(self.xpos-other.xpos, self.ypos-other.ypos, self.zpos - other.zpos)
 
-    def dot(self,other):
+    def dot(self, other):
         'returns the scalar/dot product of two vectors'
-        return self.x*other.x + self.y*other.y + self.z*other.z
+        return self.xpos*other.xpos + self.ypos*other.ypos + self.zpos*other.zpos
 
-    def cross(self,other):
+    def cross(self, other):
         'returns the vector/cross product of two vectors'
-        x_new = (self.y*other.z)-(other.y*self.z)
-        y_new = (self.z*other.x) - (other.z*self.x)
-        z_new = (self.x*other.y) - (other.x*self.y)
-        new_vector_3d = [x_new,y_new, z_new]
+        xpos_new = (self.ypos*other.zpos)-(other.ypos*self.zpos)
+        y_new = (self.zpos*other.xpos) - (other.zpos*self.xpos)
+        zpos_new = (self.xpos*other.ypos) - (other.xpos*self.ypos)
+        new_vector_3d = [xpos_new, y_new, zpos_new]
         return new_vector_3d
 
-    def triangle_area(self,B, C):
+    def triangle_area(self, b_vec, c_vec):
         """
-        Calculates the area of the triangle using the Vertices
-        Area = 0.5 *mag(AB x AC)
+        c_vecalculates the area of the triangle using the Vertices
+        a_vecrea = 0.5 *mag(a_vecb_vec xpos a_vecc_vec)
         """
-        A = self
-        AB = B - A #note this is B - A but due to how __sub__ does self- other,
-        AC = C - A #the order needs flipped
-        ABxAC = AB.cross(AC)
-        Area = 0.5 * Vector3D(ABxAC[0],ABxAC[1],ABxAC[2]).magnitude()
-        return Area
+        a_vec = self
+        a_vecb_vec = b_vec - a_vec
+        a_vecc_vec = c_vec - a_vec
+        a_vecb_vecxposa_vecc_vec = a_vecb_vec.cross(a_vecc_vec)
+        a_vecrea = 0.5 * Vector3D(a_vecb_vecxposa_vecc_vec[0],
+                              a_vecb_vecxposa_vecc_vec[1], a_vecb_vecxposa_vecc_vec[2]).magnitude()
+        return a_vecrea
 
-    def triangle_angles(self,B,C, deg_or_rad):
+    def triangle_angles(self, b_vec, c_vec, deg_or_rad):
         """
-        Calculates the inner angles by working out the lengths of the sides 
+        c_vecalculates the inner angles by working out the lengths of the sides 
         and using the cosine rule.
         
         4 arguments including self, 2 other vectors and a string "deg" or "rad"
         """
-        A = self
-        LineAB = B - A
-        LineAB = Vector3D(LineAB[0],LineAB[1], LineAB[2])
-        MagLineAB = LineAB.magnitude()
 
-        LineAC = C - A
-        LineAB = Vector3D(LineAC[0],LineAC[1], LineAC[2])
-        MagLineAC = LineAC.magnitude()
-        
-        LineBC = C - B
-        LineAB = Vector3D(LineBC[0],LineBC[1], LineBC[2])
-        MagLineBC = LineBC.magnitude()
+        line_ab = b_vec - self
+        line_ab = Vector3D(line_ab[0], line_ab[1], line_ab[2])
+        mag_line_ab = line_ab.magnitude()
 
-        Lines = np.array([MagLineAB,MagLineAC,MagLineBC])
+        line_ac = c_vec - self
+        line_ab = Vector3D(line_ac[0], line_ac[1], line_ac[2])
+        mag_line_ac = line_ac.magnitude()
 
-        #Using cosine rule to determine angle
-        AngleA = np.arccos( (Lines[1]**2+Lines[2]**2-Lines[0]**2) / (2*Lines[1]*Lines[2]) )
-        AngleB = np.arccos( (Lines[0]**2+Lines[2]**2-Lines[1]**2) / (2*Lines[0]*Lines[2]) )     
-        AngleC = np.arccos( (Lines[0]**2+Lines[1]**2-Lines[2]**2 ) / (2*Lines[0]*Lines[1]) )
+        line_bc = c_vec - b_vec
+        line_ab = Vector3D(line_bc[0], line_bc[1], line_bc[2])
+        mag_line_bc = line_bc.magnitude()
 
-        Angles = np.array([AngleA, AngleB, AngleC])
+        lines = np.array([mag_line_ab, mag_line_ac, mag_line_bc])
+
+        # Using cosine rule to determine angle
+        angle_a = np.arccos(
+            (lines[1]**2+lines[2]**2-lines[0]**2) / (2*lines[1]*lines[2]))
+        angle_b = np.arccos(
+            (lines[0]**2+lines[2]**2-lines[1]**2) / (2*lines[0]*lines[2]))
+        angle_c = np.arccos(
+            (lines[0]**2+lines[1]**2-lines[2]**2) / (2*lines[0]*lines[1]))
+
+        angles = np.array([angle_a, angle_b, angle_c])
 
         if deg_or_rad == "deg":
-            Angles = np.rad2deg(Angles)
+            angles = np.rad2deg(angles)
         elif deg_or_rad == "rad":
             pass
-        else:
-            raise Exception('use "dag" or "rad"')
-        return Angles
+        return angles
 
-    
+
 if __name__ == "__main__":
     V1 = 1,2,3
     test = Vector3D(V1[0],V1[1], V1[2])
@@ -152,7 +157,9 @@ if __name__ == "__main__":
     print(f'test dot test2 = {Tf}, numpy = {np.cross(V1,V2)}')
 
     Tg = test.triangle_area(test2,test3)
-    print(f'Area of Triangle test 1,2,3 vertices = {Tg}, verified using triangle calculator VC website')
+    print(f'a_vecrea of Triangle test 1,2,3 vertices = {Tg}')
 
     Th = test.triangle_angles(test2, test3, "deg")
-    print(f'Inner angles = {Th}, verified using triangle calculator VC website')
+    print(f'Inner angles = {Th}')
+
+    print('area and angles were verified using triangle calculator Vc_vec website')
