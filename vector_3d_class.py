@@ -36,6 +36,18 @@ class Vector3D:
         return str([self.xpos, self.ypos, self.zpos])
 
     def __getitem__(self, indexpos):
+        """
+        
+
+        Parameters
+        ----------
+        indexpos : Index of specific coordinate
+
+        Returns
+        -------
+        Specific coordinate 
+
+        """
         if indexpos == 0:
             return self.xpos
         if indexpos == 1:
@@ -46,14 +58,13 @@ class Vector3D:
     def magnitude(self):
         "returns the magnitude of the vector"
         mag = np.sqrt(self.xpos**2 + self.ypos**2 + self.zpos**2)
-        # print(f"V magnitude = {mag}")
         return mag
 
     def __add__(self, other):
         """
         Parameters
         ----------
-        other : a_vec second vector created using this class
+        other : a second vector created using this class
 
         Returns
         -------
@@ -72,6 +83,7 @@ class Vector3D:
 
     def cross(self, other):
         'returns the vector/cross product of two vectors'
+
         xpos_new = (self.ypos*other.zpos)-(other.ypos*self.zpos)
         y_new = (self.zpos*other.xpos) - (other.zpos*self.xpos)
         zpos_new = (self.xpos*other.ypos) - (other.xpos*self.ypos)
@@ -81,15 +93,15 @@ class Vector3D:
     def triangle_area(self, b_vec, c_vec):
         """
         c_vecalculates the area of the triangle using the Vertices
-        a_vecrea = 0.5 *mag(a_vecb_vec xpos a_vecc_vec)
+        vec_area = 0.5 *mag(AB - AC)
         """
         a_vec = self
-        a_vecb_vec = b_vec - a_vec
-        a_vecc_vec = c_vec - a_vec
-        a_vecb_vecxposa_vecc_vec = a_vecb_vec.cross(a_vecc_vec)
-        a_vecrea = 0.5 * Vector3D(a_vecb_vecxposa_vecc_vec[0],
-                              a_vecb_vecxposa_vecc_vec[1], a_vecb_vecxposa_vecc_vec[2]).magnitude()
-        return a_vecrea
+        a_cross_b = b_vec - a_vec
+        a_cross_c = c_vec - a_vec
+        b_cross_c = a_cross_b.cross(a_cross_c)
+        vec_area = 0.5 * Vector3D(b_cross_c[0],
+                              b_cross_c[1], b_cross_c[2]).magnitude()
+        return vec_area
 
     def triangle_angles(self, b_vec, c_vec, deg_or_rad):
         """
@@ -157,9 +169,9 @@ if __name__ == "__main__":
     print(f'test dot test2 = {Tf}, numpy = {np.cross(V1,V2)}')
 
     Tg = test.triangle_area(test2,test3)
-    print(f'a_vecrea of Triangle test 1,2,3 vertices = {Tg}')
+    print(f'vec_area of Triangle test 1,2,3 vertices = {Tg}')
 
     Th = test.triangle_angles(test2, test3, "deg")
     print(f'Inner angles = {Th}')
 
-    print('area and angles were verified using triangle calculator Vc_vec website')
+    print('area and angles were verified using triangle calculator Vc website')
