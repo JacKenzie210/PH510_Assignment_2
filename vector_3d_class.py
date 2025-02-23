@@ -20,7 +20,7 @@ class Vector3D:
         Parameters
         ----------
         xpos : First co-ordinate.
-        ypos :Second co-ordinate
+        ypos : Second co-ordinate
         zpos : Third co-ordinate
 
         Returns
@@ -31,14 +31,18 @@ class Vector3D:
         self.xpos = xpos
         self.ypos = ypos
         self.zpos = zpos
+        
+        eps = 1e-10 #error tolerence to turn very small numbers to 0
+        self.xpos = 0 if abs(self.xpos) < eps else self.xpos
+        self.ypos = 0 if abs(self.ypos) < eps else self.ypos
+        self.zpos = 0 if abs(self.zpos) < eps else self.zpos
+
 
     def __str__(self):
         return str([self.xpos, self.ypos, self.zpos])
 
     def __getitem__(self, indexpos):
         """
-        
-
         Parameters
         ----------
         indexpos : Index of specific coordinate
@@ -169,7 +173,7 @@ if __name__ == "__main__":
     print(f'test dot test2 = {Tf}, numpy = {np.cross(V1,V2)}')
 
     Tg = test.triangle_area(test2,test3)
-    print(f'vec_area of Triangle test 1,2,3 vertices = {Tg}')
+    print(f'vec_area of Triangle test[1-3] vertices = {Tg}')
 
     Th = test.triangle_angles(test2, test3, "deg")
     print(f'Inner angles = {Th}')
