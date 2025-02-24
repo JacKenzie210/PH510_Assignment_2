@@ -27,11 +27,12 @@ class Vector3D:
         -------
         None.
 
+
         """
         self.xpos = xpos
         self.ypos = ypos
         self.zpos = zpos
-        
+
         eps = 1e-10 #error tolerence to turn very small numbers to 0
         self.xpos = 0 if abs(self.xpos) < eps else self.xpos
         self.ypos = 0 if abs(self.ypos) < eps else self.ypos
@@ -49,7 +50,7 @@ class Vector3D:
 
         Returns
         -------
-        Specific coordinate 
+        Specific coordinate
 
         """
         if indexpos == 0:
@@ -109,9 +110,9 @@ class Vector3D:
 
     def triangle_angles(self, b_vec, c_vec, deg_or_rad):
         """
-        c_vecalculates the inner angles by working out the lengths of the sides 
+        c_vecalculates the inner angles by working out the lengths of the sides
         and using the cosine rule.
-        
+
         4 arguments including self, 2 other vectors and a string "deg" or "rad"
         """
 
